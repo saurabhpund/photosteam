@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+
+.roboto{
+    font-family: "Roboto", sans-serif;
+}
+
+
+.perspective { perspective: 1200px; }
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+
+/* Realistic dynamic shadow */
+.shadow-real {
+  position: relative;
+}
+.shadow-real::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: 10%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  transform: rotateX(90deg);
+  filter: blur(12px);
+  transition: opacity 0.7s ease-in-out;
+  opacity: 1;
+}
+.flip-inner:hover::after {
+  opacity: 0.3;
+}
+
+.bg-blob{
+  background-image: url("./assets/svg/blob.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bg-auth{
+  background-image: url("./assets/authpageimage.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.bg-auth-2{
+  background-image: url("./assets/authimage2.jpg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.bg-gallery{
+  background-image: url("./assets/gallery-bg-3.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
