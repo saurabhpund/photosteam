@@ -8,6 +8,7 @@ const Register = () => {
   const [error, setError] = React.useState(null);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [fullName, setFullName] = React.useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -19,7 +20,7 @@ const Register = () => {
     }
 
     const baseUrl = "http://localhost:8080";
-    const payload = { email, password };
+    const payload = { fullName, email, password, role: "USER" };
 
     axios
       .post(`${baseUrl}/api/auth/register`, payload, {
@@ -66,11 +67,26 @@ const Register = () => {
                 <h1 className="text-4xl text-center font-semibold mb-6">Create Account</h1>
                 <div className="mb-4">
                   <label className="block text-gray-700 mb-2" htmlFor="email">
+                    Full Name
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your full name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    className="w-full bg-gray-200 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 mb-2" htmlFor="email">
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
+                    value={email}
                     placeholder="Enter your email"
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-gray-200 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -87,6 +103,7 @@ const Register = () => {
                   <input
                     type="password"
                     id="password"
+                    value={password}
                     placeholder="•••••••••"
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-3 bg-gray-200 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

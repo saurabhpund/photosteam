@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useContext, useState } from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
@@ -8,12 +6,16 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import Gallery from './pages/Gallery/Gallery'
 import Creator from './pages/Creator/Creator'
+import { LoginContext } from './context/LoginContext'
 
 
 function App() {
 
+  useContext
+
   return (
     <>
+    <LoginContext>
       <BrowserRouter>
         <Routes>
           <Route index path='/' element={<Home />} />
@@ -24,6 +26,7 @@ function App() {
           <Route path='auth/forgot-password' element={<h1>Forgot Password Page</h1>} />
         </Routes>
       </BrowserRouter>
+    </LoginContext>
     </>
   )
 }

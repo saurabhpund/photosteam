@@ -2,12 +2,16 @@ import React from "react";
 import Footer from "../../components/Footer";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { LoginCTX } from "../../context/LoginContext";
+import useVerifyAuth from "../../hooks/useVerifyAuth";
 
 const Login = () => {
   const [error, setError] = React.useState(null);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
+  const {isLogin, setIsLogin} = React.useContext(LoginCTX); 
+  const {isVerified, loading} = useVerifyAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,6 +25,7 @@ const Login = () => {
     const payload = {
       email,
       password,
+      role: "USER"
     };
 
     axios
@@ -30,6 +35,7 @@ const Login = () => {
       .then((response) => {
         console.log("Login successful:", response.data);
         localStorage.setItem("token", response.data.token);
+        setIsLogin(true); 
         navigate("/");
       })
       .catch((error) => {
@@ -37,6 +43,13 @@ const Login = () => {
         setError("Invalid email or password");
       });
   };
+
+  React.useEffect(() => {
+    document.title = "Login | PhotoSteam";
+    if (!loading && isVerified) {
+      navigate("/");
+    }
+  }, [loading, isVerified]);
 
   return (
     <>

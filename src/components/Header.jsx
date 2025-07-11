@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { LoginCTX } from "../context/LoginContext";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // simulate logged-in user
+  const {isLogin, setIsLogin} = React.useContext(LoginCTX); // simulate logged-in user
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -50,7 +51,7 @@ const Header = () => {
           {/* Right-side Controls */}
           <div className="flex items-center space-x-4">
             {/* User Avatar Dropdown (if logged in) */}
-            {isAuthenticated ? (
+            {isLogin ? (
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
@@ -98,7 +99,7 @@ const Header = () => {
                       <li>
                         <button
                           onClick={() => {
-                            setIsAuthenticated(false);
+                            setIsLogin(false);
                             setUserDropdownOpen(false);
                           }}
                           className="block w-full text-left px-4 py-2 hover:bg-gray-100"
@@ -157,7 +158,7 @@ const Header = () => {
             <Link to="/upload" onClick={() => setMobileMenuOpen(false)}>
               Upload
             </Link>
-            {!isAuthenticated ? (
+            {!isLogin ? (
               <>
                 <Link to="/auth/login" onClick={() => setMobileMenuOpen(false)}>
                   Login
@@ -179,7 +180,7 @@ const Header = () => {
                 </Link>
                 <button
                   onClick={() => {
-                    setIsAuthenticated(false);
+                    setIsLogin(false);
                     setMobileMenuOpen(false);
                   }}
                   className="text-left"
